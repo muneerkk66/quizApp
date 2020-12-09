@@ -1,0 +1,117 @@
+import 'package:flutter/material.dart';
+import 'package:quizApp/pages/quiz.dart';
+import 'package:video_player/video_player.dart';
+
+class VideoPlayerScreen extends StatefulWidget {
+  VideoPlayerScreen({Key key}) : super(key: key);
+
+  @override
+  VideoPlayerScreenState createState() => VideoPlayerScreenState();
+}
+
+class VideoPlayerScreenState extends State<VideoPlayerScreen> {
+  VideoPlayerController controller;
+  Future<void> initializeVideoPlayerFuture;
+
+  @override
+  void initState() {
+    // Create and store the VideoPlayerController. The VideoPlayerController
+    // offers several different constructors to play videos from assets, files,
+    // or the internet.
+    controller = VideoPlayerController.network(
+      'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+    );
+
+    VoidCallback listener;
+
+    // Initialize the controller and store the Future for later use.r
+    initializeVideoPlayerFuture = controller.initialize();
+
+    // Use the controller to loop the video.
+    controller.setLooping(false);
+
+    controller.addListener(videoPlayerStatus);
+    listener = () {
+      if (controller.value.initialized) {
+        Duration duration = controller.value.duration;
+        Duration position = controller.value.position;
+        if (duration.compareTo(position) != 1) {
+          Navigator.pushReplacementNamed(context, '/main');
+        }
+      }
+    };
+    controller
+      ..addListener(listener)
+      ..setVolume(1.0)
+      ..initialize();
+    controller.play();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // Ensure disposing of the VideoPlayerController to free up resources.
+    controller.dispose();
+
+    super.dispose();
+  }
+
+  void videoPlayerStatus(){
+    print(controller.value.position);
+    print(controller.value.duration);
+    if(controller.value.position == controller.value.duration) {
+      print('finished');
+       navigateToQuizPage();
+    }
+}
+
+void navigateToQuizPage() {
+    Navigator.of(context)
+           .pushReplacementNamed('/quiz');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // Use a FutureBuilder to display a loading spinner while waiting for the
+      // VideoPlayerController to finish initializing.
+      body: FutureBuilder(
+        future: initializeVideoPlayerFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            // If the VideoPlayerController has finished initialization, use
+            // the data it provides to limit the aspect ratio of the video.
+            return AspectRatio(
+              aspectRatio: controller.value.aspectRatio,
+              // Use the VideoPlayer widget to display the video.
+              child: VideoPlayer(controller),
+            );
+          } else {
+            // If the VideoPlayerController is still initializing, show a
+            // loading spinner.
+            return Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Wrap the play or pause in a call to `setState`. This ensures the
+          // correct icon is shown.
+          setState(() {
+            // If the video is playing, pause it.
+            if (controller.value.isPlaying) {
+              controller.pause();
+            } else {
+              // If the video is paused, play it.
+              controller.play();
+            }
+          });
+        },
+        // Display the correct icon depending on the state of the player.
+        child: Icon(
+          controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+        ),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}

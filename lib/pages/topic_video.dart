@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:quizApp/bloc/video_player.dart';
 import 'package:quizApp/model/topic.dart';
+import 'package:video_player/video_player.dart';
 
 class TopicVideoPage extends StatefulWidget {
 
@@ -30,9 +32,14 @@ class TopicVideoPageState extends State<TopicVideoPage> {
         centerTitle: true,
         backgroundColor: Colors.black,
         elevation: 0.0,
+        
       ),
+      body: Center(
+      child: VideoPlayerScreen(),
+    ),
 
     );
     
   }
 }
+
