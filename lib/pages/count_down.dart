@@ -13,7 +13,9 @@ class _CountDownState extends State<CountDown> with TickerProviderStateMixin {
     Duration duration =
         animationController.duration * animationController.value;
     if (duration.inSeconds == 0) {
+      Future.delayed(Duration(milliseconds: 200), () {
          Navigator.pushReplacementNamed(context, '/quiz');
+});
     }
     return '${(duration.inSeconds % 60)
         .toString()}';
