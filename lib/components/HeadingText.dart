@@ -11,9 +11,9 @@ class HeadingText extends StatelessWidget {
       child: Text(
         "$textToDisplay",
         style: TextStyle(
-          fontSize: 35.0,
+          fontSize: 20.0,
           fontWeight: FontWeight.bold,
-          color: Colors.red[700],
+          color: Colors.grey,
         ),
       ),
     );

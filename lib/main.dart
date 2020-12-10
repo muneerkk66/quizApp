@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:quizApp/pages/count_down.dart';
+import 'package:quizApp/pages/quiz.dart';
 import 'package:quizApp/pages/topic_list.dart';
+import 'package:quizApp/pages/topic_video.dart';
 void main() {
   runApp(MyApp());
 }
@@ -26,6 +29,11 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+       routes: { //route setting
+       '/topicvideo': (context) => TopicVideoPage(), 
+       '/quiz': (context) => Home(), 
+       '/countdown': (context) => CountDown()//you should have something like this.
+    },
       home: new TopicListPage(),
     );
   }

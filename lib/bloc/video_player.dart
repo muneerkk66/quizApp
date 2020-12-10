@@ -4,7 +4,7 @@ import 'package:video_player/video_player.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   VideoPlayerScreen({Key key}) : super(key: key);
-
+  String videoDuration = "";
   @override
   VideoPlayerScreenState createState() => VideoPlayerScreenState();
 }
@@ -12,7 +12,7 @@ class VideoPlayerScreen extends StatefulWidget {
 class VideoPlayerScreenState extends State<VideoPlayerScreen> {
   VideoPlayerController controller;
   Future<void> initializeVideoPlayerFuture;
-
+  String videoDuration = "";
   @override
   void initState() {
     // Create and store the VideoPlayerController. The VideoPlayerController
@@ -29,14 +29,16 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
     // Use the controller to loop the video.
     controller.setLooping(false);
-
-    controller.addListener(videoPlayerStatus);
     listener = () {
       if (controller.value.initialized) {
         Duration duration = controller.value.duration;
         Duration position = controller.value.position;
+        videoDuration = position.toString();
+        print(position);
+        print(position.toString());
         if (duration.compareTo(position) != 1) {
-          Navigator.pushReplacementNamed(context, '/main');
+          
+          Navigator.pushReplacementNamed(context, '/countdown');
         }
       }
     };
@@ -56,19 +58,6 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen> {
     super.dispose();
   }
 
-  void videoPlayerStatus(){
-    print(controller.value.position);
-    print(controller.value.duration);
-    if(controller.value.position == controller.value.duration) {
-      print('finished');
-       navigateToQuizPage();
-    }
-}
-
-void navigateToQuizPage() {
-    Navigator.of(context)
-           .pushReplacementNamed('/quiz');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +82,8 @@ void navigateToQuizPage() {
           }
         },
       ),
+    
+      
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Wrap the play or pause in a call to `setState`. This ensures the
@@ -112,6 +103,17 @@ void navigateToQuizPage() {
           controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+      bottomNavigationBar: BottomAppBar (
+        child: Text("Quiz Will start when video is played completly",
+          textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 15.0,          
+          color: Colors.white,
+        ),
+          ),
+        color: Colors.black,
+        ),
+  
     );
   }
 }

@@ -17,7 +17,7 @@ class AnswerButton extends StatelessWidget {
       child: MaterialButton(
         minWidth: screenWidth,
         onPressed: isQuizStarted ? () => checkAnswer("$optionText") : null,
-        color: Colors.lightBlue[800],
+        color: Colors.blue,
         height: 50.0,
         child: AnswerText("$optionText", screenWidth),
       ),

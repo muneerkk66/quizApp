@@ -14,7 +14,7 @@ class QuestionText extends StatelessWidget {
         "$textToDisplay",
         softWrap: true,
         style: TextStyle(
-          fontSize: 25.0,
+          fontSize: 35.0,
           fontWeight: FontWeight.bold,
           color: Colors.black,
         ),

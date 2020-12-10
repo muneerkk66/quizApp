@@ -8,7 +8,7 @@ import 'package:quizApp/model/questions.dart';
 
 
 //APP CONSTANTS
-var _THEME_COLOUR_ = const Color(0xff0A3D62);
+var _THEME_COLOUR_ = Colors.black;
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
