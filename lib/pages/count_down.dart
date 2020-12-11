@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:quizApp/utils/constants.dart';
 
 class CountDown extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class _CountDownState extends State<CountDown> with TickerProviderStateMixin {
         animationController.duration * animationController.value;
     if (duration.inSeconds == 0) {
       Future.delayed(Duration(milliseconds: 200), () {
-         Navigator.pushReplacementNamed(context, '/quiz');
+         Navigator.pushReplacementNamed(context, RouterURLS.quiz);
 });
     }
     return '${(duration.inSeconds % 60)
@@ -63,7 +64,7 @@ class _CountDownState extends State<CountDown> with TickerProviderStateMixin {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              "Get Ready",
+                              AppConstants.getReady,
                               style: TextStyle(
           fontSize: 50.0,          
           color: Colors.red,
@@ -112,8 +113,7 @@ class TimerPainter extends CustomPainter {
     paint.color = color;
     double progress = (1.0 - animation.value) * 2 * pi;
     canvas.drawArc(Offset.zero & size, pi * 1.5, -progress, false, paint);
-  
-    // TODO: implement paint
+
   }
 
   @override

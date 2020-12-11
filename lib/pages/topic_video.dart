@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quizApp/bloc/video_player.dart';
 import 'package:quizApp/model/topic.dart';
-import 'package:video_player/video_player.dart';
 
 class TopicVideoPage extends StatefulWidget {
 

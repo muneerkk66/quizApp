@@ -5,6 +5,7 @@ import 'package:quizApp/components/AnswerButton.dart';
 import 'package:quizApp/components/HeadingText.dart';
 import 'package:quizApp/components/QuestionText.dart';
 import 'package:quizApp/model/questions.dart';
+import 'package:quizApp/utils/constants.dart';
 
 
 //APP CONSTANTS
@@ -21,7 +22,7 @@ class _HomeState extends State<Home> {
   int totalQues = 3;
   int solvedQues = 0;
   String nextQue = "";
-  String quiz_status = "START";
+  String quiz_status = AppConstants.start;
   String score = "";
   String op1, op2, op3, op4, answer;
   bool isQuizStarted = false;
@@ -49,13 +50,13 @@ class _HomeState extends State<Home> {
           index = Random().nextInt(QUESTIONS.length);
         }
         solvedQuesIndexes.add(index);
-        List<String> ans = QUESTIONS[index]['answers'];
-        nextQue = QUESTIONS[index]['question'];
+        List<String> ans = QUESTIONS[index][AppConstants.answers];
+        nextQue = QUESTIONS[index][AppConstants.question];
         op1 = ans[0];
         op2 = ans[1];
         op3 = ans[2];
         op4 = ans[3];
-        answer = ans[QUESTIONS[index]['correctIndex']];
+        answer = ans[QUESTIONS[index][AppConstants.correctIndex]];
       }
     });
   }
@@ -66,20 +67,20 @@ class _HomeState extends State<Home> {
       solvedQues = 0;
       isQuizStarted = true;
       score = "";
-      quiz_status = "RESTART";
+      quiz_status = AppConstants.restart;
       solvedQuesIndexes = [];
       var index = Random().nextInt(QUESTIONS.length);
       while (solvedQuesIndexes.contains(index)) {
         index = Random().nextInt(QUESTIONS.length);
       }
       solvedQuesIndexes.add(index);
-      List<String> ans = QUESTIONS[index]['answers'];
-      nextQue = QUESTIONS[index]['question'];
+      List<String> ans = QUESTIONS[index][AppConstants.answers];
+      nextQue = QUESTIONS[index][AppConstants.question];
       op1 = ans[0];
       op2 = ans[1];
       op3 = ans[2];
       op4 = ans[3];
-      answer = ans[QUESTIONS[index]['correctIndex']];
+      answer = ans[QUESTIONS[index][AppConstants.correctIndex]];
     });
   }
 
@@ -91,7 +92,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         backgroundColor: _THEME_COLOUR_,
         title: Text(
-          "QUIZ",
+          AppConstants.appTitle,
           style: TextStyle(
             fontSize: 24.0,
           ),

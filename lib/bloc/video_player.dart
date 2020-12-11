@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quizApp/pages/quiz.dart';
+import 'package:quizApp/utils/constants.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
@@ -19,7 +19,7 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen> {
     // offers several different constructors to play videos from assets, files,
     // or the internet.
     controller = VideoPlayerController.network(
-      'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+      AppConstants.videoUrl,
     );
 
     VoidCallback listener;
@@ -37,8 +37,7 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen> {
         print(position);
         print(position.toString());
         if (duration.compareTo(position) != 1) {
-          
-          Navigator.pushReplacementNamed(context, '/countdown');
+          Navigator.pushReplacementNamed(context,RouterURLS.countdown );
         }
       }
     };
@@ -104,7 +103,7 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen> {
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
       bottomNavigationBar: BottomAppBar (
-        child: Text("Quiz Will start when video is played completly",
+        child: Text(AppConstants.quizInfo,
           textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 15.0,          
