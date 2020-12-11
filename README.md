@@ -6,9 +6,9 @@
 
 ## Requirements
 
-# Flutter 1.20.1 • channel stable • https://github.com/flutter/flutter.git
-# Tools • Dart 2.9.0
-# VCode
+### Flutter 1.20.1 • channel stable • https://github.com/flutter/flutter.git
+### Tools • Dart 2.9.0
+### VCode
 
  ## Architecture
  
